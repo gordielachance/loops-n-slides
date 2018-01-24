@@ -5,9 +5,8 @@
  * Display a post title and excerpt
  */
 global $loopsns_loop;
-?>
 
-<?php if ( have_posts() ){ ?>
+if ( have_posts() ){ ?>
     <?php 
     while( have_posts() ){
         the_post();
@@ -30,6 +29,5 @@ global $loopsns_loop;
 
    <?php 
     }
-
 }
 ?>

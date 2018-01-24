@@ -50,6 +50,7 @@ class LoopsNSlides_Posts_Slide{
                 'editor',
                 'thumbnail'
             ),
+            'taxonomies' => array( 'category', 'post_tag' ),
             'show_in_menu'    => loopsns()->menu_slug,
         ));
     }

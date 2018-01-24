@@ -130,24 +130,15 @@ class LoopsNSlides_Posts_Loop{
         global $loopsns_loop;
         
         $json_qargs = ($qargs = $loopsns_loop->get_query_args()) ? json_encode($qargs) : null;
-        
-        //
 
+        //
+        
         $default_cargs = loopsns()->options['default-carousel-options'];
-        $cargs = loopsns()->options_default['default-carousel-options'];
-        if ($default_cargs == $cargs) unset($cargs);
+        $cargs = $loopsns_loop->get_carousel_args();
+        if ($default_cargs == $cargs) $cargs = null;
         
         $json_default_cargs = $default_cargs ? json_encode($default_cargs) : null;
         $json_cargs = $cargs ? json_encode($cargs) : null;
-        
-        //
-        
-        $default_gallery_cargs = loopsns()->options['default-gallery-carousel-options'];
-        $gallery_cargs = loopsns()->options_default['default-gallery-carousel-options'];
-        if ($default_gallery_cargs == $gallery_cargs) unset($gallery_cargs);
-        
-        $json_default_gallery_cargs = $default_gallery_cargs ? json_encode($default_gallery_cargs) : null;
-        $json_gallery_cargs = $gallery_cargs ? json_encode($gallery_cargs) : null;
 
         ?>
         <table class="form-table">

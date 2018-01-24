@@ -73,12 +73,14 @@ class LoopsNSlides_Core {
             'default-carousel-options'  => array(
                 'items' =>  3,
                 'loop' =>   true,
-                'autoplay' => true
+                'autoplay' => true,
+                'animateOut' => 'fadeOut'
             ),
             'default-gallery-carousel-options'  => array(
                 'items' =>  1,
                 'loop' =>   true,
-                'autoplay' => true
+                'autoplay' => true,
+                'animateOut' => 'fadeOut'
             )
         );
         

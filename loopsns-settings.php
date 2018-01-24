@@ -50,12 +50,15 @@ class LoopsNSlides_Settings{
             
             //loops carousel defaults
             $carousel_defaults_json = ( isset($_POST[ 'default-carousel-options-json' ]) ) ? stripslashes_deep($_POST[ 'default-carousel-options-json' ]) : null;
-            $new_input['default-carousel-options'] = json_decode($carousel_defaults_json,true);
-            
+            if($carousel_defaults_json){
+                $new_input['default-carousel-options'] = json_decode($carousel_defaults_json,true);
+            }
+
             //gallery carousel defaults
             $gallery_carousel_defaults_json = ( isset($_POST[ 'default-gallery-carousel-options-json' ]) ) ? stripslashes_deep($_POST[ 'default-gallery-carousel-options-json' ]) : null;
-            $new_input['default-gallery-carousel-options'] = json_decode($gallery_carousel_defaults_json,true);
-
+            if ($gallery_carousel_defaults_json){
+                $new_input['default-gallery-carousel-options'] = json_decode($gallery_carousel_defaults_json,true);
+            }
         }
 
         return $new_input;
@@ -139,8 +142,8 @@ class LoopsNSlides_Settings{
     }
     
     function loop_carousel_options_callback(){
-        $default_cargs = loopsns()->options['default-carousel-options'];
-        $cargs = loopsns()->options_default['default-carousel-options'];
+        $default_cargs = loopsns()->options_default['default-carousel-options'];
+        $cargs = loopsns()->options['default-carousel-options'];
         
         if ($default_cargs == $cargs) unset($cargs);
         
@@ -173,6 +176,8 @@ class LoopsNSlides_Settings{
         <?php _e("Loops 'n Slides can convert your Wordpress galleries to carousels.",'loopsns');?>
         <br/>
         <?php printf(__("You can enable this by default; or enable it gallery-per-gallery by adding the attribute %s to a gallery shortcode.",'loopsns'),'<code>loopsns-carousel=1</code>');?>
+        <br/>
+        <?php printf(__("When enabled globally, you can prevent a gallery from rendering as a carousel by adding the attribute %s.",'loopsns'),'<code>loopsns-carousel=0</code>');?>
         </p>
         <?php
     }
@@ -188,13 +193,13 @@ class LoopsNSlides_Settings{
         );
     }
     function gallery_carousel_options_callback(){
-        $default_cargs = loopsns()->options['default-gallery-carousel-options'];
-        $cargs = loopsns()->options_default['default-gallery-carousel-options'];
+        $cargs = loopsns()->options['default-gallery-carousel-options'];
+        $default_cargs = loopsns()->options_default['default-gallery-carousel-options'];
         if ($default_cargs == $cargs) unset($cargs);
         
         $json_default_cargs = $default_cargs ? json_encode($default_cargs) : null;
         $json_cargs = $cargs ? json_encode($cargs) : null;
-        
+
         ?>
         <p>
             <textarea class="loopsns-json fullwidth" placeholder="<?php echo esc_textarea($json_default_cargs);?>" name="default-gallery-carousel-options-json" class="fullwidth"><?php echo esc_textarea($json_cargs);?></textarea>

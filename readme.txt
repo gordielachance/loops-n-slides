@@ -56,10 +56,21 @@ If you are a plugin developer, [we would like to hear from you](https://github.c
 
 == Frequently Asked Questions ==
 
+= How can I use custom templates to render my loops? =
+
+Create a directory `loopsns` in your active theme.
+Create your [custom page templates](https://developer.wordpress.org/themes/template-files-section/page-template-files/#creating-custom-page-templates-for-global-use) in that directory.  They should have a specific opening PHP tag:
+`<?php /* Loops 'n Slides Loop: My Custom Loop Template Title */ ?>`
+
+See the files under *loops-n-slides/templates* for examples.
+You can override those default files by have custom files that have the same filename in your `loopsns` directory.
+
 = How can I use the plugin to display an existing Wordpress gallery as a carousel? =
 
 You can either enable this option by default for all your galleries (see the Loops 'n Slides Settings page); or enable it for a few galleries only, by adding the attribute `loopsns-carousel=1` to your existing shortcode.
-Example : `[gallery ids="113,117" loopsns-carousel=1]` 
+Example : `[gallery ids="113,117" loopsns-carousel=1]`
+
+When enabled globally, you can prevent a gallery from rendering as a carousel by adding the attribute `loopsns-carousel=0`.
 
 
 == Screenshots ==

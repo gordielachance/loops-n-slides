@@ -177,7 +177,7 @@ class LoopsNSlides_Instance {
         $this->maybe_setup_carousel();
         
         ob_start();
-        load_template( $template, true );
+        load_template( $template, false );
         $content = ob_get_clean();
 
         $this->reset_loop();
@@ -270,7 +270,7 @@ class LoopsNSlides_Gallery_Instance extends LoopsNSlides_Instance{
         loopsns()->debug_log($qargs,'LoopsNSlides_Gallery_Instance::get_gallery_query_atts');
         return $qargs;
     }
-    
+
     function get_carousel_args(){
         return loopsns()->options['default-gallery-carousel-options'];
     }
