@@ -1,0 +1,18 @@
+/* line 2, ../scss/loopsns-admin.scss */
+.wp-admin .fullwidth {
+  width: 100%;
+}
+/* line 5, ../scss/loopsns-admin.scss */
+.wp-admin textarea.loopsns-json {
+  font-family: Consolas,Monaco,monospace;
+  height: 8em;
+}
+/* line 8, ../scss/loopsns-admin.scss */
+.wp-admin textarea.loopsns-json::placeholder {
+  color: #CCC;
+}
+/* line 13, ../scss/loopsns-admin.scss */
+.wp-admin .postbox#loopsns-editor .form-table td p {
+  margin-top: 0;
+  margin-bottom: 1em;
+}

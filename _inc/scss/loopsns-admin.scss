@@ -1,0 +1,18 @@
+.wp-admin{
+    .fullwidth{
+        width:100%;
+    }
+    textarea.loopsns-json{
+        font-family: Consolas,Monaco,monospace;
+        height:8em;
+        &::placeholder {
+            color:#CCC;
+        }
+    }
+    .postbox#loopsns-editor{
+        .form-table td p {
+            margin-top: 0;
+            margin-bottom: 1em;
+        }
+    }
+}
