@@ -63,7 +63,7 @@ Create your [custom page templates](https://developer.wordpress.org/themes/templ
 `<?php /* Loops 'n Slides Loop: My Custom Loop Template Title */ ?>`
 
 See the files under *loops-n-slides/templates* for examples.
-You can override those default files by have custom files that have the same filename in your `loopsns` directory.
+You can override those default files by have custom files that have the same filename in your `loops-n-slides` directory.
 
 = How can I use the plugin to display an existing Wordpress gallery as a carousel? =
 

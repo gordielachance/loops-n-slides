@@ -185,7 +185,7 @@ class LoopsNSlides_Posts_Loop{
                             </select>
                         </p>
                         <p>
-                            <?php printf(__('You can add your own templates by creating a %s directory in your theme.','loopsns'),'<code>/loopsns</code>');?>
+                            <?php printf(__('You can add your own templates by creating a %s directory in your theme.','loopsns'),'<code>/loops-n-slides</code>');?>
                         </p>
                         <p>
                             <?php _e('The templates that you create in this directory should have an opening PHP comment at the top of the file that states the template’s name:','loopsns');?><br/>
@@ -358,8 +358,8 @@ class LoopsNSlides_Posts_Loop{
             //templates priority : the first directory from the array have the highest priority.
             //this means that child templates will override parent templates which will override default templates.
 
-            $dirs[] =   trailingslashit( get_stylesheet_directory() ) . 'loopsns'; //child theme path
-            $dirs[] =   trailingslashit( get_template_directory() ) . 'loopsns'; //parent theme path
+            $dirs[] =   trailingslashit( get_stylesheet_directory() ) . 'loops-n-slides'; //child theme path
+            $dirs[] =   trailingslashit( get_template_directory() ) . 'loops-n-slides'; //parent theme path
             $dirs =     apply_filters( 'loopsns_templates_directories' , $dirs ); //allow plugins to add template paths
             $dirs[] =   loopsns()->templates_dir; //the loops templates path
 
