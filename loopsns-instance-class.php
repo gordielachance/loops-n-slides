@@ -188,7 +188,7 @@ class LoopsNSlides_Instance {
             'data-loopsns-loop-id' => $this->unique_id,
             'class' => implode(' ',$this->get_classes()),
         );
-
+        $attr = apply_filters('loopsns_get_loop_attributes',$attr,$this);
         $attr = array_filter($attr);
         $attr_str = ($attr) ? loopsns_get_html_attr($attr) : null;
 
