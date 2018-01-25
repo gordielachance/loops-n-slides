@@ -27,7 +27,7 @@ Locate a template & fallback in plugin's folder
 */
 function loopsns_locate_template( $template_name, $load = false, $require_once = true ) {
 
-    if ( !$located = locate_template( 'loopsns/' . $template_name ) ) { //get from theme directory
+    if ( !$located = locate_template( 'loops-n-slides/' . $template_name ) ) { //get from theme directory
         $located = loopsns()->templates_dir . $template_name; //get from directory 'templates' in plugin
     }
     
