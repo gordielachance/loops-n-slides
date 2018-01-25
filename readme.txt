@@ -3,7 +3,7 @@ Contributors: grosbouff
 Donate link: http://bit.ly/gbreant
 Tags: loop,shortcode,query,carousel,slides,owlcarousel,queries
 Requires at least: 4.9
-Tested up to: 4.9.1
+Tested up to: 4.9.2
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -75,10 +75,13 @@ When enabled globally, you can prevent a gallery from rendering as a carousel by
 
 == Screenshots ==
 
+1. Loop editor metabox
+2. Settings page
+
 
 == Changelog ==
 
-= 0.9 =
+= 1.0.0 =
 
 * First release
 
