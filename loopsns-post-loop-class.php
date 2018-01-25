@@ -246,7 +246,7 @@ class LoopsNSlides_Posts_Loop{
         
         ?>
         <p class="loopsns-notice">
-            <?php echo _e("The look of the loop might be slightly different frontend.",'loopsns');?>
+            <?php echo _e("The look of the loop might be different frontend.",'loopsns');?>
         </p>
         <?php
         
@@ -358,8 +358,8 @@ class LoopsNSlides_Posts_Loop{
             //templates priority : the first directory from the array have the highest priority.
             //this means that child templates will override parent templates which will override default templates.
 
-            $dirs[] =   get_stylesheet_directory(); //child theme path
-            $dirs[] =   get_template_directory(); //parent theme path
+            $dirs[] =   trailingslashit( get_stylesheet_directory() ) . 'loopsns'; //child theme path
+            $dirs[] =   trailingslashit( get_template_directory() ) . 'loopsns'; //parent theme path
             $dirs =     apply_filters( 'loopsns_templates_directories' , $dirs ); //allow plugins to add template paths
             $dirs[] =   loopsns()->templates_dir; //the loops templates path
 
