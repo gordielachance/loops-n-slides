@@ -80,7 +80,7 @@ class LoopsNSlides_Posts_Loop{
         global $post;
         if ($columnName == 'loopsns-loop-shortcode') {
             ?>
-            <code><?php printf('[loopsns id=%s]',$post->ID);?></code>
+            <code><?php printf('[loops-n-slides id=%s]',$post->ID);?></code>
             <?php
             
         }
@@ -121,7 +121,7 @@ class LoopsNSlides_Posts_Loop{
             <?php _e('To use the shortcode, copy/paste it in the post or page where you want to display the loop.','loopsns');?>
         </p>
         <p>
-            <code><?php printf('[loopsns id=%s]',$loopsns_loop->id);?></code>
+            <code><?php printf('[loops-n-slides id=%s]',$loopsns_loop->id);?></code>
         </p>
         <?php
     }

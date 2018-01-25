@@ -18,14 +18,14 @@ Optionally, it will convert your existing galleries to carousels.
 * **Sky is the limit !** Create a loop that will display exactly the posts you want; filtered by tag, category, by post author... any Wordpress Query works !
 * **Loop templates:** You can choose among several templates to display your loop, or **create your own** !
 * **Carousels:** The plugin is shipped with [OwlCarousel](https://owlcarousel2.github.io/OwlCarousel2/).  Just click the *Carousel Checkbox* when editing a loop, it will be displayed in a nice, slidy way.  You can define global options for the carousels, or/and define them for each loop.
-* **Shortcode: ** Once a loop has been created, you can embed it in a posts with a simple shortcode: `[loopsns id=XXX]`
+* **Shortcode: ** Once a loop has been created, you can embed it in a posts with a simple shortcode: `[loops-n-slides id=XXX]`
 * **Carousel galleries:** Optionally, enable carousels for your existing Wordpress galleries, globally or for each gallery.
 * **Totally Free:** There is NO premium version for this plugin, because it is *totally free*.  Of course, [donations](http://bit.ly/gbreant) would be very appreciated.
 
 
 = Shortcodes =
 
-`[loopsns id=XXX]` where XXX is the ID of your loop.
+`[loops-n-slides id=XXX]` where XXX is the ID of your loop.
 
 = Donate! =
 

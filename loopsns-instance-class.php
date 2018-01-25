@@ -282,6 +282,12 @@ class LoopsNSlides_Gallery_Instance extends LoopsNSlides_Instance{
     function is_carousel(){
         return true;
     }
+    
+    function get_classes(){
+        $classes = parent::get_classes();
+        $classes[] = 'loopsns-gallery';
+        return $classes;
+    }
 }
 
 
