@@ -114,6 +114,7 @@ class LoopsNSlides_Posts_Loop{
         global $loopsns_loop;
         
         if ( !self::is_single_loop_admin()  ) return;
+        $loop_id_txt = $loopsns_loop->id ? $loopsns_loop->id : 'POST_ID';
         
         ?>
         <h2><?php _e('Shortcode','loopsns');?></h2>
@@ -121,7 +122,7 @@ class LoopsNSlides_Posts_Loop{
             <?php _e('To use the shortcode, copy/paste it in the post or page where you want to display the loop.','loopsns');?>
         </p>
         <p>
-            <code><?php printf('[loops-n-slides id=%s]',$loopsns_loop->id);?></code>
+            <code><?php printf('[loops-n-slides id=%s]',$loop_id_txt);?></code>
         </p>
         <?php
     }
@@ -168,7 +169,7 @@ class LoopsNSlides_Posts_Loop{
                                 <?php
                                 foreach ( $this->get_loop_templates() as $title => $file ) {
                                     $filename = basename( $file );
-                                    $selected_attr = selected( $file, $loopsns_loop->template );
+                                    $selected_attr = selected( $file, $loopsns_loop->get_template() );
                                     printf('<option value="%s" %s>%s</option>',esc_attr( $filename ),$selected_attr,$title);
                                 }
                                 ?>
@@ -275,7 +276,7 @@ class LoopsNSlides_Posts_Loop{
         if ( !$is_valid_nonce || $is_autodraft || $is_autosave || $is_revision ) return;
         
         /*query args*/
-        $default_qargs = loopsns()->options['default-query'];
+        $default_qargs = loopsns()->get_options('query_args');
         $qargs = ( isset($_POST[ 'loopsns_qargs_json' ]) ) ? stripslashes_deep($_POST[ 'loopsns_qargs_json' ]) : null;
 
         if ( loopsns_is_json($qargs) ){
@@ -307,7 +308,7 @@ class LoopsNSlides_Posts_Loop{
         }
 
         /*carousel args*/
-        $default_cargs = loopsns()->options['default-carousel-options'];
+        $default_cargs = loopsns()->get_options('carousel_args');
         $cargs = ( isset($_POST[ 'loopsns_cargs_json' ]) ) ? stripslashes_deep($_POST[ 'loopsns_cargs_json' ]) : null;
         
         if ( loopsns_is_json($cargs) ){

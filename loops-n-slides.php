@@ -44,8 +44,8 @@ class LoopsNSlides_Core {
         
             if ( ! isset( self::$instance ) ) {
                     self::$instance = new LoopsNSlides_Core;
-                    self::$instance->setup_globals();
                     self::$instance->includes();
+                    self::$instance->setup_globals();
                     self::$instance->setup_actions();
             }
             return self::$instance;
@@ -68,25 +68,39 @@ class LoopsNSlides_Core {
         $this->plugin_dir = plugin_dir_path( $this->file );
         $this->templates_dir = trailingslashit( $this->plugin_dir . 'templates' ); 
         $this->plugin_url = plugin_dir_url ( $this->file );
+        
         $this->options_default = array(
-            'default-query'             => null,
-            'gallery-carousel'          => 'on',
-            'default-carousel-options'  => array(
+            'query_args'             => array(
+                'post_type' =>      LoopsNSlides_Posts_Slide::$slide_post_type,
+                'posts_per_page' => -1
+            ),
+            'carousel_args'  => array(
                 'items' =>  3,
                 'loop' =>   true,
                 'autoplay' => true,
                 'animateOut' => 'fadeOut'
             ),
-            'default-gallery-carousel-options'  => array(
+            'template' => $this->templates_dir . 'loop-list.php',
+            
+            'gallery-carousel'          => 'on',
+            'gallery_carousel_args'  => array(
                 'items' =>  1,
                 'loop' =>   true,
                 'autoplay' => true,
                 'animateOut' => 'fadeOut'
-            )
+            ),
+            'gallery_template' => loopsns()->templates_dir . 'loop-gallery.php'
         );
         
         $this->options = wp_parse_args(get_option( $this->meta_name_options), $this->options_default);
 
+    }
+    
+    public function get_options($keys = null){
+        return loopsns_get_array_value($keys,$this->options);
+    }
+    public function get_defaults($keys = null){
+        return loopsns_get_array_value($keys,$this->options_default);
     }
     
     function includes(){
