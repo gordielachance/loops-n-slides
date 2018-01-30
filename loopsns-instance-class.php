@@ -185,7 +185,6 @@ class LoopsNSlides_Instance {
             'class' => implode(' ',$this->get_classes()),
         );
         $attr = apply_filters('loopsns_get_loop_attributes',$attr,$this);
-        $attr = array_filter($attr);
         $attr_str = ($attr) ? loopsns_get_html_attr($attr) : null;
 
         return sprintf('<div %s>%s</div>',$attr_str,$content);

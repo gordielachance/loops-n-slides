@@ -30,6 +30,7 @@ Make a string from an array of attributes
 function loopsns_get_html_attr($arr=null){
     $str = null;
     $arr = (array)$arr;
+    $arr = array_filter($arr, function($value) { return $value !== ''; }); //remove empty strings
     
     //attributes with values
     if (!empty($arr) ){
