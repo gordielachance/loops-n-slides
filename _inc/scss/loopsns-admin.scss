@@ -10,8 +10,11 @@
             }
         }
         .loopsns-json-display{
-            min-height: 8em;
+            border:1px solid #CCC;
+            height: 10em;
+            overflow:auto;
             padding: 1em;
+            box-sizing: border-box;
             &.loopsns-json-display-edit{
                 background: white;
             }
@@ -19,8 +22,9 @@
                 padding:1em 2em;
             }
             textarea{
+                margin:0;
+                padding:0;
                 border:0;
-                background:transparent;
                 box-shadow: none;
                 font-family: Consolas,Monaco,monospace;
                 height:100%;

@@ -130,8 +130,6 @@ class LoopsNSlides_Posts_Loop{
         global $loopsns_loop;
 
         $qargs = $loopsns_loop->get_query_args();
-        
-        $default_cargs = loopsns()->options['default-carousel-options'];
         $cargs = $loopsns_loop->get_carousel_args();
 
         ?>
@@ -206,7 +204,7 @@ class LoopsNSlides_Posts_Loop{
                         <label for="carousel_options"><?php _e('Carousel options','loopsns');?></label>
                     </th>
                     <td>
-                        <?php loopsns_json_container('"loopsns_cargs_json',$cargs,$default_cargs);?>
+                        <?php loopsns_json_container('loopsns_cargs_json',$cargs);?>
                         <p>
                             <?php _e('Json-encoded array of options for the carousel.','loopsns');?>
                         </p>
@@ -277,8 +275,14 @@ class LoopsNSlides_Posts_Loop{
         if ( !$is_valid_nonce || $is_autodraft || $is_autosave || $is_revision ) return;
         
         /*query args*/
-        $qargs_json = ( isset($_POST[ 'loopsns_qargs_json' ]) ) ? stripslashes_deep($_POST[ 'loopsns_qargs_json' ]) : null;
-        $qargs = json_decode($qargs_json,true);
+        $default_qargs = loopsns()->options['default-query'];
+        $qargs = ( isset($_POST[ 'loopsns_qargs_json' ]) ) ? stripslashes_deep($_POST[ 'loopsns_qargs_json' ]) : null;
+
+        if ( loopsns_is_json($qargs) ){
+            $qargs = json_decode($qargs,true);
+        }
+
+        if ($qargs == $default_qargs) $qargs = null; //unset if defaults
 
         if (!$qargs){
             delete_post_meta( $post_id, self::$qargs_metakey );
@@ -303,8 +307,14 @@ class LoopsNSlides_Posts_Loop{
         }
 
         /*carousel args*/
-        $cargs_json = ( isset($_POST[ 'loopsns_cargs_json' ]) ) ? stripslashes_deep($_POST[ 'loopsns_cargs_json' ]) : null;
-        $cargs = json_decode($cargs_json,true);
+        $default_cargs = loopsns()->options['default-carousel-options'];
+        $cargs = ( isset($_POST[ 'loopsns_cargs_json' ]) ) ? stripslashes_deep($_POST[ 'loopsns_cargs_json' ]) : null;
+        
+        if ( loopsns_is_json($cargs) ){
+            $cargs = json_decode($cargs,true);
+        }
+
+        if ($cargs == $default_cargs) $cargs = null; //unset if defaults
 
         if (!$cargs){
             delete_post_meta( $post_id, self::$cargs_metakey );

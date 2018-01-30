@@ -13,14 +13,8 @@ jQuery(document).ready(function($) {
             var json = null;
             var data = textarea.val();
             data = data.trim();
-            var data_placeholder = textarea.attr('placeholder');
             var render_el = container.find('.loopsns-json-display-read');
 
-
-            if ((data=='') && data_placeholder) {
-                data = data_placeholder.trim();
-            }
-            
             if (data){
                 try {
                     json = JSON.parse(data);

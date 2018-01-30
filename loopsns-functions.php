@@ -38,23 +38,20 @@ function loopsns_locate_template( $template_name, $load = false, $require_once =
     return $located;
 }
 
-function loopsns_json_container($name,$args=null,$defaults=null){
-    
-    $defaults = null;
+function loopsns_json_container($name,$value=null){
 
-    if ($args && !loopsns_is_json($args) ) $args = json_encode($args);
-    if ($defaults && !loopsns_is_json($defaults) ) $defaults = json_encode($defaults);
-    if ($args == $defaults) $args= '';
+    if ($value && !loopsns_is_json($value) ) $value = json_encode($value);
+    $placeholder = __('Enter a JSON string','loopsns');
     
     ?>
     <div class="loopsns-json-container">
         <ul class="loopsns-json-tabs">
-            <li><a href="#<?php echo $name;?>-json-view" class="button"><?php _e('View','loopsns');?></a></li>
-            <li><a href="#<?php echo $name;?>-json-edit" class="button"><?php _e('Edit','loopsns');?></a></li>
+            <li><a href="#<?php echo $name;?>-json-view" class="button"><?php _e('View JSON','loopsns');?></a></li>
+            <li><a href="#<?php echo $name;?>-json-edit" class="button"><?php _e('Edit JSON','loopsns');?></a></li>
         </ul>
         <div id="<?php echo $name;?>-json-view" class="loopsns-json-display loopsns-json-display-read"><!--populated through JS--></div>
         <div id="<?php echo $name;?>-json-edit" class="loopsns-json-display loopsns-json-display-edit">
-            <textarea class="fullwidth" placeholder="<?php echo esc_attr($defaults);?>" name="<?php echo $name;?>" class="fullwidth"><?php echo esc_textarea($args);?></textarea>
+            <textarea class="fullwidth" placeholder="<?php echo esc_attr($placeholder);?>" name="<?php echo $name;?>" class="fullwidth"><?php echo esc_textarea($value);?></textarea>
         </div>
 
     </div>

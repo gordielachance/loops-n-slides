@@ -36,6 +36,7 @@ This would be very appreciated — Thanks !
 = Dependencies =
 
 * [OwlCarousel](https://owlcarousel2.github.io/OwlCarousel2/) - jQuery OwlCarousel
+* [jQuery json-viewer](https://github.com/abodelot/jquery.json-viewer) - jQuery plugin for displaying JSON data
 
 = Contributors =
 
@@ -80,6 +81,9 @@ When enabled globally, you can prevent a gallery from rendering as a carousel by
 
 
 == Changelog ==
+
+= 1.1.0 =
+* now uses [jQuery json-viewer](https://github.com/abodelot/jquery.json-viewer) - jQuery plugin for displaying JSON data
 
 = 1.0.0 =
 

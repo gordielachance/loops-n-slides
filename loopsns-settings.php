@@ -48,16 +48,33 @@ class LoopsNSlides_Settings{
             //gallery default
             $new_input['gallery-carousel'] = ( isset($input['gallery-carousel']) ) ? 'on' : 'off';
             
-            //loops carousel defaults
-            $carousel_defaults_json = ( isset($_POST[ 'default-carousel-options-json' ]) ) ? stripslashes_deep($_POST[ 'default-carousel-options-json' ]) : null;
-            if($carousel_defaults_json){
-                $new_input['default-carousel-options'] = json_decode($carousel_defaults_json,true);
+            /*loops carousel defaults*/
+            $default_cargs = loopsns()->options_default['default-carousel-options'];
+            $cargs = null;
+            $cargs = ( isset($_POST[ 'default-carousel-options-json' ]) ) ? stripslashes_deep($_POST[ 'default-carousel-options-json' ]) : null;
+            if ( loopsns_is_json($cargs) ){
+                $cargs = json_decode($cargs,true);
+            }
+            
+            if ($cargs == $default_cargs) $cargs = null; //unset if = defaults
+
+            if ($cargs){
+                $new_input['default-carousel-options'] = $cargs;
             }
 
+
             //gallery carousel defaults
-            $gallery_carousel_defaults_json = ( isset($_POST[ 'default-gallery-carousel-options-json' ]) ) ? stripslashes_deep($_POST[ 'default-gallery-carousel-options-json' ]) : null;
-            if ($gallery_carousel_defaults_json){
-                $new_input['default-gallery-carousel-options'] = json_decode($gallery_carousel_defaults_json,true);
+            $default_cargs = loopsns()->options_default['default-gallery-carousel-options'];
+            $cargs = null;
+            $cargs = ( isset($_POST[ 'default-gallery-carousel-options-json' ]) ) ? stripslashes_deep($_POST[ 'default-gallery-carousel-options-json' ]) : null;
+            if ( loopsns_is_json($cargs) ){
+                $cargs = json_decode($cargs,true);
+            }
+            
+            if ($cargs == $default_cargs) $cargs = null; //unset if = defaults
+
+            if ($cargs){
+                $new_input['default-gallery-carousel-options'] = $cargs;
             }
         }
 
