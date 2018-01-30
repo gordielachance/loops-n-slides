@@ -46,12 +46,12 @@ class LoopsNSlides_Settings{
         }else{ //sanitize values
             
             //gallery default
-            $new_input['gallery-carousel'] = ( isset($input['gallery-carousel']) ) ? 'on' : 'off';
+            $new_input['enable_gallery_carousels'] = ( isset($input['enable_gallery_carousels']) ) ? 'on' : 'off';
             
             /*loops carousel defaults*/
             $default_cargs = loopsns()->get_defaults('carousel_args');
             $cargs = null;
-            $cargs = ( isset($_POST[ 'default-carousel-options-json' ]) ) ? stripslashes_deep($_POST[ 'default-carousel-options-json' ]) : null;
+            $cargs = ( isset($_POST[ 'carousel_args_json' ]) ) ? stripslashes_deep($_POST[ 'carousel_args_json' ]) : null;
             if ( loopsns_is_json($cargs) ){
                 $cargs = json_decode($cargs,true);
             }
@@ -59,14 +59,14 @@ class LoopsNSlides_Settings{
             if ($cargs == $default_cargs) $cargs = null; //unset if = defaults
 
             if ($cargs){
-                $new_input['default-carousel-options'] = $cargs;
+                $new_input['carousel_args'] = $cargs;
             }
 
 
             //gallery carousel defaults
             $default_cargs = loopsns()->get_defaults('gallery_carousel_args');
             $cargs = null;
-            $cargs = ( isset($_POST[ 'default-gallery-carousel-options-json' ]) ) ? stripslashes_deep($_POST[ 'default-gallery-carousel-options-json' ]) : null;
+            $cargs = ( isset($_POST[ 'gallery_carousel_args_json' ]) ) ? stripslashes_deep($_POST[ 'gallery_carousel_args_json' ]) : null;
             if ( loopsns_is_json($cargs) ){
                 $cargs = json_decode($cargs,true);
             }
@@ -74,7 +74,7 @@ class LoopsNSlides_Settings{
             if ($cargs == $default_cargs) $cargs = null; //unset if = defaults
 
             if ($cargs){
-                $new_input['default-gallery-carousel-options'] = $cargs;
+                $new_input['gallery_carousel_args'] = $cargs;
             }
         }
 
@@ -119,7 +119,7 @@ class LoopsNSlides_Settings{
         );
         
         add_settings_field(
-            'gallery-carousel', 
+            'enable_gallery_carousels', 
             __('Default','wpsstm'), 
             array( $this, 'gallery_carousel_callback' ), 
             'loopsns-settings-page', 
@@ -161,7 +161,7 @@ class LoopsNSlides_Settings{
     function loop_carousel_options_callback(){
         $default_cargs = loopsns()->get_defaults('carousel_args');
         $cargs = loopsns()->get_options('carousel_args');
-        loopsns_json_container('default-carousel-options-json',$cargs,$default_cargs);
+        loopsns_json_container('carousel_args_json',$cargs,$default_cargs);
         ?>
         <p>
             <?php _e('Json-encoded array of options for the carousel.','loopsns');?>
@@ -193,10 +193,10 @@ class LoopsNSlides_Settings{
     }
     
     function gallery_carousel_callback(){
-        $option = loopsns()->get_options('gallery-carousel');
+        $option = loopsns()->get_options('enable_gallery_carousels');
 
         printf(
-            '<input type="checkbox" name="%1$s[gallery-carousel]" value="on" %2$s /><span>%3$s</span>',
+            '<input type="checkbox" name="%1$s[enable_gallery_carousels]" value="on" %2$s /><span>%3$s</span>',
             loopsns()->meta_name_options,
             checked($option, 'on', false),
             __('Enabled','loopsns')
@@ -208,7 +208,7 @@ class LoopsNSlides_Settings{
     function gallery_carousel_options_callback(){
         $cargs = loopsns()->get_options('gallery_carousel_args');
         $default_cargs = loopsns()->get_defaults('gallery_carousel_args');
-        loopsns_json_container('default-gallery-carousel-options-json',$cargs,$default_cargs);
+        loopsns_json_container('gallery_carousel_args_json',$cargs,$default_cargs);
 
         ?>
         <p>

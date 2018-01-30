@@ -82,7 +82,7 @@ class LoopsNSlides_Core {
             ),
             'template' => $this->templates_dir . 'loop-list.php',
             
-            'gallery-carousel'          => 'on',
+            'enable_gallery_carousels'          => 'on',
             'gallery_carousel_args'  => array(
                 'items' =>  1,
                 'loop' =>   true,
