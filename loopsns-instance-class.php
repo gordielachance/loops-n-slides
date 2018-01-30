@@ -12,19 +12,17 @@ class LoopsNSlides_Instance {
     function __construct($post_id = null){
         $this->id = $post_id;
         $this->unique_id = uniqid(); //in case we don't have a post ID; useful for JS
-        
-        if ($this->id){
-            $this->query_args = $this->get_query_args();
-            $this->template = $this->get_template();
-            $this->carousel = $this->is_carousel();
-        }
     }
-    public static function get_defaults(){
-        return array(
+    
+    public static function get_defaults($keys = null){
+        $defaults = array(
             'id' => null,
-            'query_args' => null,
-            'template' => static::get_default_loop_template(),
+            'query_args' => loopsns()->get_options('query_args'),
+            'carousel_args' => loopsns()->get_options('carousel_args'),
+            'template' => loopsns()->get_options('template'),
+            
         );
+        return loopsns_get_array_value($keys,$defaults);
     }
     
     function is_carousel(){
@@ -43,11 +41,12 @@ class LoopsNSlides_Instance {
             if ( !is_wp_error(LoopsNSlides_Posts_Loop::is_loop_template($file) ) ){
                 $template = $file;
             }
+            
         }
 
         //default
         if (!$template){
-            $template = static::get_default_loop_template();
+            $template = static::get_defaults('template');
         }
 
         return $template;
@@ -55,7 +54,8 @@ class LoopsNSlides_Instance {
     
     function get_query_args(){
         if ($this->query_args === null){
-            $this->query_args = get_post_meta( $this->id, LoopsNSlides_Posts_Loop::$qargs_metakey, true );
+            $meta = get_post_meta( $this->id, LoopsNSlides_Posts_Loop::$qargs_metakey, true );
+            $this->query_args = $meta ? $meta : $this->get_defaults('query_args');
         }
         return $this->query_args;
     }
@@ -63,11 +63,7 @@ class LoopsNSlides_Instance {
     function get_carousel_args(){
         if ($this->carousel_args === null){
             $meta = get_post_meta( $this->id, LoopsNSlides_Posts_Loop::$cargs_metakey, true );
-            if ($meta){
-                $this->carousel_args = $meta;
-            }else{ //default
-                $this->carousel_args = loopsns()->options['default-carousel-options'];
-            }
+            $this->carousel_args = $meta ? $meta : $this->get_defaults('carousel_args');
         }
         return $this->carousel_args;
     }
@@ -189,15 +185,10 @@ class LoopsNSlides_Instance {
             'class' => implode(' ',$this->get_classes()),
         );
         $attr = apply_filters('loopsns_get_loop_attributes',$attr,$this);
-        $attr = array_filter($attr);
         $attr_str = ($attr) ? loopsns_get_html_attr($attr) : null;
 
         return sprintf('<div %s>%s</div>',$attr_str,$content);
         
-    }
-    
-    static function get_default_loop_template(){
-        return loopsns()->templates_dir . 'loop-list.php';
     }
 
 }
@@ -205,6 +196,16 @@ class LoopsNSlides_Instance {
 class LoopsNSlides_Gallery_Instance extends LoopsNSlides_Instance{
     
     var $gallery_atts = array();
+    
+    public static function get_defaults($keys = null){
+        $parent_defaults = parent::get_defaults();
+        $defaults = array(
+            'carousel_args' => loopsns()->get_options('gallery_carousel_args'),
+            'template' => loopsns()->get_options('gallery_template'),
+        );
+        $defaults = wp_parse_args($defaults,$parent_defaults);
+        return loopsns_get_array_value($keys,$defaults);
+    }
     
     function load_gallery_attributes($attr = array(),$post = null){
         //default atts - copyied from core function gallery_shortcode()
@@ -224,7 +225,6 @@ class LoopsNSlides_Gallery_Instance extends LoopsNSlides_Instance{
         ), $attr, 'gallery' );
         
         $this->gallery_atts = $atts;
-
         $this->query_args = $this->get_gallery_query_atts();
     }
     /*
@@ -271,14 +271,6 @@ class LoopsNSlides_Gallery_Instance extends LoopsNSlides_Instance{
         return $qargs;
     }
 
-    function get_carousel_args(){
-        return loopsns()->options['default-gallery-carousel-options'];
-    }
-    
-    static function get_default_loop_template(){
-        return loopsns()->templates_dir . 'loop-gallery.php';
-    }
-    
     function is_carousel(){
         return true;
     }

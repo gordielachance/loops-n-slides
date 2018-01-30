@@ -114,6 +114,7 @@ class LoopsNSlides_Posts_Loop{
         global $loopsns_loop;
         
         if ( !self::is_single_loop_admin()  ) return;
+        $loop_id_txt = $loopsns_loop->id ? $loopsns_loop->id : 'POST_ID';
         
         ?>
         <h2><?php _e('Shortcode','loopsns');?></h2>
@@ -121,24 +122,16 @@ class LoopsNSlides_Posts_Loop{
             <?php _e('To use the shortcode, copy/paste it in the post or page where you want to display the loop.','loopsns');?>
         </p>
         <p>
-            <code><?php printf('[loops-n-slides id=%s]',$loopsns_loop->id);?></code>
+            <code><?php printf('[loops-n-slides id=%s]',$loop_id_txt);?></code>
         </p>
         <?php
     }
     
     function metabox_loop_editor_content( $post ){
         global $loopsns_loop;
-        
-        $json_qargs = ($qargs = $loopsns_loop->get_query_args()) ? json_encode($qargs) : null;
 
-        //
-        
-        $default_cargs = loopsns()->options['default-carousel-options'];
+        $qargs = $loopsns_loop->get_query_args();
         $cargs = $loopsns_loop->get_carousel_args();
-        if ($default_cargs == $cargs) $cargs = null;
-        
-        $json_default_cargs = $default_cargs ? json_encode($default_cargs) : null;
-        $json_cargs = $cargs ? json_encode($cargs) : null;
 
         ?>
         <table class="form-table">
@@ -148,9 +141,7 @@ class LoopsNSlides_Posts_Loop{
                         <label for="loop-query"><?php _e('Query','loopsns');?></label>
                     </th>
                     <td>
-                        <p>
-                            <textarea class="loopsns-json fullwidth" id="loop-query" placeholder="<?php echo esc_textarea(json_encode(self::get_query_placeholder()));?>" name="loopsns_qargs_json" class="fullwidth"><?php echo esc_textarea($json_qargs);?></textarea>
-                        </p>
+                        <?php loopsns_json_container('loopsns_qargs_json',$qargs);?>
                         <p>
                             <?php _e('Json-encoded array of query parameters that will be used to fetch the loop items.','loopsns');?>
                             <br/>
@@ -178,7 +169,7 @@ class LoopsNSlides_Posts_Loop{
                                 <?php
                                 foreach ( $this->get_loop_templates() as $title => $file ) {
                                     $filename = basename( $file );
-                                    $selected_attr = selected( $file, $loopsns_loop->template );
+                                    $selected_attr = selected( $file, $loopsns_loop->get_template() );
                                     printf('<option value="%s" %s>%s</option>',esc_attr( $filename ),$selected_attr,$title);
                                 }
                                 ?>
@@ -214,9 +205,7 @@ class LoopsNSlides_Posts_Loop{
                         <label for="carousel_options"><?php _e('Carousel options','loopsns');?></label>
                     </th>
                     <td>
-                        <p>
-                            <textarea class="loopsns-json fullwidth" id="carousel-options" placeholder="<?php echo esc_textarea($json_default_cargs);?>" name="loopsns_cargs_json" class="fullwidth"><?php echo esc_textarea($json_cargs);?></textarea>
-                        </p>
+                        <?php loopsns_json_container('loopsns_cargs_json',$cargs);?>
                         <p>
                             <?php _e('Json-encoded array of options for the carousel.','loopsns');?>
                         </p>
@@ -287,8 +276,14 @@ class LoopsNSlides_Posts_Loop{
         if ( !$is_valid_nonce || $is_autodraft || $is_autosave || $is_revision ) return;
         
         /*query args*/
-        $qargs_json = ( isset($_POST[ 'loopsns_qargs_json' ]) ) ? stripslashes_deep($_POST[ 'loopsns_qargs_json' ]) : null;
-        $qargs = json_decode($qargs_json,true);
+        $default_qargs = loopsns()->get_options('query_args');
+        $qargs = ( isset($_POST[ 'loopsns_qargs_json' ]) ) ? stripslashes_deep($_POST[ 'loopsns_qargs_json' ]) : null;
+
+        if ( loopsns_is_json($qargs) ){
+            $qargs = json_decode($qargs,true);
+        }
+
+        if ($qargs == $default_qargs) $qargs = null; //unset if defaults
 
         if (!$qargs){
             delete_post_meta( $post_id, self::$qargs_metakey );
@@ -313,8 +308,14 @@ class LoopsNSlides_Posts_Loop{
         }
 
         /*carousel args*/
-        $cargs_json = ( isset($_POST[ 'loopsns_cargs_json' ]) ) ? stripslashes_deep($_POST[ 'loopsns_cargs_json' ]) : null;
-        $cargs = json_decode($cargs_json,true);
+        $default_cargs = loopsns()->get_options('carousel_args');
+        $cargs = ( isset($_POST[ 'loopsns_cargs_json' ]) ) ? stripslashes_deep($_POST[ 'loopsns_cargs_json' ]) : null;
+        
+        if ( loopsns_is_json($cargs) ){
+            $cargs = json_decode($cargs,true);
+        }
+
+        if ($cargs == $default_cargs) $cargs = null; //unset if defaults
 
         if (!$cargs){
             delete_post_meta( $post_id, self::$cargs_metakey );

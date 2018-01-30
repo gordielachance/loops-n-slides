@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Loops 'n Slides
-Description: A simple yet powerful plugin that allows you to build custom posts loops and load them using a shortcode; eventually as a carousel of slides.
+Description: A simple yet powerful plugin that allows you to build custom posts loops and display them using a shortcode; eventually as a carousel of slides.
 Plugin URI: https://github.com/gordielachance/loops-n-slides
 Author: G.Breant
 Author URI: https://profiles.wordpress.org/grosbouff/#content-plugins
-Version: 1.0.0
+Version: 1.1.0
 License: GPL2
 */
 
@@ -14,7 +14,7 @@ class LoopsNSlides_Core {
     /**
     * @public string plugin version
     */
-    public $version = '1.0.0';
+    public $version = '1.1.0';
     /**
     * @public string plugin DB version
     */
@@ -44,8 +44,8 @@ class LoopsNSlides_Core {
         
             if ( ! isset( self::$instance ) ) {
                     self::$instance = new LoopsNSlides_Core;
-                    self::$instance->setup_globals();
                     self::$instance->includes();
+                    self::$instance->setup_globals();
                     self::$instance->setup_actions();
             }
             return self::$instance;
@@ -68,24 +68,39 @@ class LoopsNSlides_Core {
         $this->plugin_dir = plugin_dir_path( $this->file );
         $this->templates_dir = trailingslashit( $this->plugin_dir . 'templates' ); 
         $this->plugin_url = plugin_dir_url ( $this->file );
+        
         $this->options_default = array(
-            'gallery-carousel'          => 'on',
-            'default-carousel-options'  => array(
+            'query_args'             => array(
+                'post_type' =>      LoopsNSlides_Posts_Slide::$slide_post_type,
+                'posts_per_page' => -1
+            ),
+            'carousel_args'  => array(
                 'items' =>  3,
                 'loop' =>   true,
                 'autoplay' => true,
                 'animateOut' => 'fadeOut'
             ),
-            'default-gallery-carousel-options'  => array(
+            'template' => $this->templates_dir . 'loop-list.php',
+            
+            'enable_gallery_carousels'          => 'on',
+            'gallery_carousel_args'  => array(
                 'items' =>  1,
                 'loop' =>   true,
                 'autoplay' => true,
                 'animateOut' => 'fadeOut'
-            )
+            ),
+            'gallery_template' => loopsns()->templates_dir . 'loop-gallery.php'
         );
         
         $this->options = wp_parse_args(get_option( $this->meta_name_options), $this->options_default);
 
+    }
+    
+    public function get_options($keys = null){
+        return loopsns_get_array_value($keys,$this->options);
+    }
+    public function get_defaults($keys = null){
+        return loopsns_get_array_value($keys,$this->options_default);
     }
     
     function includes(){
@@ -146,12 +161,17 @@ class LoopsNSlides_Core {
         
         if ( !$this->is_loopsnslides_admin() ) return;
         
+        //JSON VIEWER
+        wp_register_script('jquery.json-viewer', $this->plugin_url . '_inc/js/jquery.json-viewer/jquery.json-viewer.js',array('jquery')); //TOFIX version
+        wp_register_style('jquery.json-viewer', $this->plugin_url . '_inc/js/jquery.json-viewer/jquery.json-viewer.css',null); //TOFIX version
+        
         //CSS
-        wp_register_style('loopsns-admin', $this->plugin_url . '_inc/css/loopsns-admin.css',null,$this->version);
+        wp_register_style('loopsns-admin', $this->plugin_url . '_inc/css/loopsns-admin.css',array('jquery.json-viewer'),$this->version);
         wp_enqueue_style('loopsns-admin');
 
         //JS
-        wp_register_script('loopsns-admin', $this->plugin_url . '_inc/js/loopsns-admin.js',array('jquery'),$this->version);
+        
+        wp_register_script('loopsns-admin', $this->plugin_url . '_inc/js/loopsns-admin.js',array('jquery.json-viewer','jquery-ui-tabs'),$this->version);
 
         wp_enqueue_script('loopsns-admin');
         

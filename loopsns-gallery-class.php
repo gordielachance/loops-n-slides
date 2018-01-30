@@ -21,7 +21,7 @@ class LoopsNSlides_Gallery{
 
         //carousel enabled : custom or default ?
         if (!isset($atts['loopsns-carousel'])){
-            $default_enabled = ( loopsns()->options['gallery-carousel'] == 'on' );
+            $default_enabled = ( loopsns()->get_options('enable_gallery_carousels') == 'on' );
             if ($default_enabled){
                 $atts['loopsns-carousel'] = 1;
             }
