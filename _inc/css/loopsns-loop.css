@@ -4,52 +4,43 @@
   text-align: center;
   background: #ebfbed;
   padding: .5em;
-  margin: .5em;
-}
+  margin: .5em; }
 
 /* line 11, ../scss/loopsns-loop.scss */
 .imgcover, .loopsns-loop.loopsns-loop-template-loop-carousel .hentry figure > img, .loopsns-loop.loopsns-loop-template-loop-gallery .hentry figure > img {
   object-fit: cover;
   width: 100%;
-  height: 100%;
-}
+  height: 100%; }
 
 /* line 17, ../scss/loopsns-loop.scss */
 .loopsns-loop {
   position: relative;
-  margin: 1em 0;
-}
-/* line 23, ../scss/loopsns-loop.scss */
-.loopsns-loop.loopsns-loop-template-loop-carousel .hentry, .loopsns-loop.loopsns-loop-template-loop-gallery .hentry {
-  height: 500px;
-}
-/* line 25, ../scss/loopsns-loop.scss */
-.loopsns-loop.loopsns-loop-template-loop-carousel .hentry .loopsns-slide-title, .loopsns-loop.loopsns-loop-template-loop-gallery .hentry .loopsns-slide-title {
-  word-break: break-all;
-}
-/* line 28, ../scss/loopsns-loop.scss */
-.loopsns-loop.loopsns-loop-template-loop-carousel .hentry figure, .loopsns-loop.loopsns-loop-template-loop-gallery .hentry figure {
-  height: 100%;
-  width: 100%;
-  position: relative;
-  z-index: 0;
-}
-/* line 33, ../scss/loopsns-loop.scss */
-.loopsns-loop.loopsns-loop-template-loop-carousel .hentry figure > img, .loopsns-loop.loopsns-loop-template-loop-gallery .hentry figure > img {
-  position: absolute;
-}
-/* line 37, ../scss/loopsns-loop.scss */
-.loopsns-loop.loopsns-loop-template-loop-carousel .hentry figure figcaption, .loopsns-loop.loopsns-loop-template-loop-gallery .hentry figure figcaption {
-  border-top: 1px solid white;
-  padding: 2em;
-  box-sizing: border-box;
-  z-index: 1;
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.75);
-}
-/* line 46, ../scss/loopsns-loop.scss */
-.loopsns-loop.loopsns-loop-template-loop-carousel .hentry figure figcaption .loopsns-slide-title, .loopsns-loop.loopsns-loop-template-loop-gallery .hentry figure figcaption .loopsns-slide-title {
-  margin-top: 0;
-}
+  margin: 1em 0; }
+  /* line 23, ../scss/loopsns-loop.scss */
+  .loopsns-loop.loopsns-loop-template-loop-carousel .hentry, .loopsns-loop.loopsns-loop-template-loop-gallery .hentry {
+    height: 500px; }
+    /* line 25, ../scss/loopsns-loop.scss */
+    .loopsns-loop.loopsns-loop-template-loop-carousel .hentry .loopsns-slide-title, .loopsns-loop.loopsns-loop-template-loop-gallery .hentry .loopsns-slide-title {
+      word-break: break-all; }
+    /* line 28, ../scss/loopsns-loop.scss */
+    .loopsns-loop.loopsns-loop-template-loop-carousel .hentry figure, .loopsns-loop.loopsns-loop-template-loop-gallery .hentry figure {
+      height: 100%;
+      width: 100%;
+      position: relative;
+      z-index: 0; }
+      /* line 33, ../scss/loopsns-loop.scss */
+      .loopsns-loop.loopsns-loop-template-loop-carousel .hentry figure > img, .loopsns-loop.loopsns-loop-template-loop-gallery .hentry figure > img {
+        position: absolute; }
+      /* line 37, ../scss/loopsns-loop.scss */
+      .loopsns-loop.loopsns-loop-template-loop-carousel .hentry figure figcaption, .loopsns-loop.loopsns-loop-template-loop-gallery .hentry figure figcaption {
+        border-top: 1px solid white;
+        padding: 2em;
+        box-sizing: border-box;
+        z-index: 1;
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.75); }
+        /* line 46, ../scss/loopsns-loop.scss */
+        .loopsns-loop.loopsns-loop-template-loop-carousel .hentry figure figcaption .loopsns-slide-title, .loopsns-loop.loopsns-loop-template-loop-gallery .hentry figure figcaption .loopsns-slide-title {
+          margin-top: 0; }
