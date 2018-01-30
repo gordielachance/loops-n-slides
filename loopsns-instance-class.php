@@ -218,7 +218,7 @@ class LoopsNSlides_Gallery_Instance extends LoopsNSlides_Instance{
             'icontag'    => $html5 ? 'div'        : 'dt',
             'captiontag' => $html5 ? 'figcaption' : 'dd',
             'columns'    => 3,
-            'size'       => 'thumbnail',
+            'size'       => 'large',
             'include'    => '',
             'exclude'    => '',
             'link'       => ''
