@@ -144,15 +144,8 @@ class LoopsNSlides_Settings{
     function loop_carousel_options_callback(){
         $default_cargs = loopsns()->options_default['default-carousel-options'];
         $cargs = loopsns()->options['default-carousel-options'];
-        
-        if ($default_cargs == $cargs) unset($cargs);
-        
-        $json_default_cargs = $default_cargs ? json_encode($default_cargs) : null;
-        $json_cargs = $cargs ? json_encode($cargs) : null;
+        loopsns_json_container('default-carousel-options-json',$cargs,$default_cargs);
         ?>
-        <p>
-            <textarea class="loopsns-json fullwidth" placeholder="<?php echo esc_textarea($json_default_cargs);?>" name="default-carousel-options-json" class="fullwidth"><?php echo esc_textarea($json_cargs);?></textarea>
-        </p>
         <p>
             <?php _e('Json-encoded array of options for the carousel.','loopsns');?>
         </p>
@@ -192,18 +185,15 @@ class LoopsNSlides_Settings{
             __('Enabled','loopsns')
         );
     }
+    
+
+    
     function gallery_carousel_options_callback(){
         $cargs = loopsns()->options['default-gallery-carousel-options'];
         $default_cargs = loopsns()->options_default['default-gallery-carousel-options'];
-        if ($default_cargs == $cargs) unset($cargs);
-        
-        $json_default_cargs = $default_cargs ? json_encode($default_cargs) : null;
-        $json_cargs = $cargs ? json_encode($cargs) : null;
+        loopsns_json_container('default-gallery-carousel-options-json',$cargs,$default_cargs);
 
         ?>
-        <p>
-            <textarea class="loopsns-json fullwidth" placeholder="<?php echo esc_textarea($json_default_cargs);?>" name="default-gallery-carousel-options-json" class="fullwidth"><?php echo esc_textarea($json_cargs);?></textarea>
-        </p>
         <p>
             <?php _e('Json-encoded array of options for the carousel.','loopsns');?>
         </p>

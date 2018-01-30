@@ -146,12 +146,17 @@ class LoopsNSlides_Core {
         
         if ( !$this->is_loopsnslides_admin() ) return;
         
+        //JSON VIEWER
+        wp_register_script('jquery.json-viewer', $this->plugin_url . '_inc/js/jquery.json-viewer/jquery.json-viewer.js',array('jquery')); //TOFIX version
+        wp_register_style('jquery.json-viewer', $this->plugin_url . '_inc/js/jquery.json-viewer/jquery.json-viewer.css',null); //TOFIX version
+        
         //CSS
-        wp_register_style('loopsns-admin', $this->plugin_url . '_inc/css/loopsns-admin.css',null,$this->version);
+        wp_register_style('loopsns-admin', $this->plugin_url . '_inc/css/loopsns-admin.css',array('jquery.json-viewer'),$this->version);
         wp_enqueue_style('loopsns-admin');
 
         //JS
-        wp_register_script('loopsns-admin', $this->plugin_url . '_inc/js/loopsns-admin.js',array('jquery'),$this->version);
+        
+        wp_register_script('loopsns-admin', $this->plugin_url . '_inc/js/loopsns-admin.js',array('jquery.json-viewer','jquery-ui-tabs'),$this->version);
 
         wp_enqueue_script('loopsns-admin');
         

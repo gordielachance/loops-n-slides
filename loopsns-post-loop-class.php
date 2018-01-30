@@ -128,17 +128,11 @@ class LoopsNSlides_Posts_Loop{
     
     function metabox_loop_editor_content( $post ){
         global $loopsns_loop;
-        
-        $json_qargs = ($qargs = $loopsns_loop->get_query_args()) ? json_encode($qargs) : null;
 
-        //
+        $qargs = $loopsns_loop->get_query_args();
         
         $default_cargs = loopsns()->options['default-carousel-options'];
         $cargs = $loopsns_loop->get_carousel_args();
-        if ($default_cargs == $cargs) $cargs = null;
-        
-        $json_default_cargs = $default_cargs ? json_encode($default_cargs) : null;
-        $json_cargs = $cargs ? json_encode($cargs) : null;
 
         ?>
         <table class="form-table">
@@ -148,9 +142,7 @@ class LoopsNSlides_Posts_Loop{
                         <label for="loop-query"><?php _e('Query','loopsns');?></label>
                     </th>
                     <td>
-                        <p>
-                            <textarea class="loopsns-json fullwidth" id="loop-query" placeholder="<?php echo esc_textarea(json_encode(self::get_query_placeholder()));?>" name="loopsns_qargs_json" class="fullwidth"><?php echo esc_textarea($json_qargs);?></textarea>
-                        </p>
+                        <?php loopsns_json_container('loopsns_qargs_json',$qargs);?>
                         <p>
                             <?php _e('Json-encoded array of query parameters that will be used to fetch the loop items.','loopsns');?>
                             <br/>
@@ -214,9 +206,7 @@ class LoopsNSlides_Posts_Loop{
                         <label for="carousel_options"><?php _e('Carousel options','loopsns');?></label>
                     </th>
                     <td>
-                        <p>
-                            <textarea class="loopsns-json fullwidth" id="carousel-options" placeholder="<?php echo esc_textarea($json_default_cargs);?>" name="loopsns_cargs_json" class="fullwidth"><?php echo esc_textarea($json_cargs);?></textarea>
-                        </p>
+                        <?php loopsns_json_container('"loopsns_cargs_json',$cargs,$default_cargs);?>
                         <p>
                             <?php _e('Json-encoded array of options for the carousel.','loopsns');?>
                         </p>

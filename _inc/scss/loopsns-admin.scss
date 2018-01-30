@@ -2,13 +2,41 @@
     .fullwidth{
         width:100%;
     }
-    textarea.loopsns-json{
-        font-family: Consolas,Monaco,monospace;
-        height:8em;
-        &::placeholder {
-            color:#CCC;
+    .loopsns-json-container{
+        position:relative;
+        ul.loopsns-json-tabs{
+            li{
+                display:inline-block;
+            }
+        }
+        .loopsns-json-display{
+            min-height: 8em;
+            padding: 1em;
+            &.loopsns-json-display-edit{
+                background: white;
+            }
+            &.loopsns-json-display-read{
+                padding:1em 2em;
+            }
+            textarea{
+                border:0;
+                background:transparent;
+                box-shadow: none;
+                font-family: Consolas,Monaco,monospace;
+                height:100%;
+                &::placeholder {
+                    color:#CCC;
+                }
+            }
+        }
+
+        &.loopsns-json-error{
+            .loopsns-json-display{
+                background-color:rgba(255,0,0,.1);
+            }
         }
     }
+
     .postbox#loopsns-editor{
         .form-table td p {
             margin-top: 0;
