@@ -1,40 +1,58 @@
 /* line 2, ../scss/loopsns-admin.scss */
 .wp-admin .fullwidth {
-  width: 100%; }
+  width: 100%;
+}
 /* line 5, ../scss/loopsns-admin.scss */
 .wp-admin .loopsns-json-container {
-  position: relative; }
-  /* line 8, ../scss/loopsns-admin.scss */
-  .wp-admin .loopsns-json-container ul.loopsns-json-tabs li {
-    display: inline-block; }
-  /* line 12, ../scss/loopsns-admin.scss */
-  .wp-admin .loopsns-json-container .loopsns-json-display {
-    border: 1px solid #CCC;
-    height: 10em;
-    overflow: auto;
-    padding: 1em;
-    box-sizing: border-box; }
-    /* line 18, ../scss/loopsns-admin.scss */
-    .wp-admin .loopsns-json-container .loopsns-json-display.loopsns-json-display-edit {
-      background: white; }
-    /* line 21, ../scss/loopsns-admin.scss */
-    .wp-admin .loopsns-json-container .loopsns-json-display.loopsns-json-display-read {
-      padding: 1em 2em; }
-    /* line 24, ../scss/loopsns-admin.scss */
-    .wp-admin .loopsns-json-container .loopsns-json-display textarea {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      box-shadow: none;
-      font-family: Consolas,Monaco,monospace;
-      height: 100%; }
-      /* line 31, ../scss/loopsns-admin.scss */
-      .wp-admin .loopsns-json-container .loopsns-json-display textarea::placeholder {
-        color: #CCC; }
-  /* line 38, ../scss/loopsns-admin.scss */
-  .wp-admin .loopsns-json-container.loopsns-json-error .loopsns-json-display {
-    background-color: rgba(255, 0, 0, 0.1); }
+  position: relative;
+}
+/* line 8, ../scss/loopsns-admin.scss */
+.wp-admin .loopsns-json-container ul.loopsns-json-tabs li {
+  display: inline-block;
+}
+/* line 12, ../scss/loopsns-admin.scss */
+.wp-admin .loopsns-json-container .loopsns-json-display {
+  border: 1px solid #CCC;
+  height: 10em;
+  overflow: auto;
+  padding: 1em;
+  box-sizing: border-box;
+}
+/* line 18, ../scss/loopsns-admin.scss */
+.wp-admin .loopsns-json-container .loopsns-json-display.loopsns-json-display-edit {
+  background: white;
+}
+/* line 21, ../scss/loopsns-admin.scss */
+.wp-admin .loopsns-json-container .loopsns-json-display.loopsns-json-display-read {
+  padding: 1em 2em;
+}
+/* line 24, ../scss/loopsns-admin.scss */
+.wp-admin .loopsns-json-container .loopsns-json-display textarea {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  font-family: Consolas,Monaco,monospace;
+  height: 100%;
+}
+/* line 31, ../scss/loopsns-admin.scss */
+.wp-admin .loopsns-json-container .loopsns-json-display textarea::placeholder {
+  color: #CCC;
+}
+/* line 38, ../scss/loopsns-admin.scss */
+.wp-admin .loopsns-json-container.loopsns-json-error .loopsns-json-display {
+  background-color: rgba(255, 0, 0, 0.1);
+}
 /* line 45, ../scss/loopsns-admin.scss */
 .wp-admin .postbox#loopsns-editor .form-table td p {
   margin-top: 0;
-  margin-bottom: 1em; }
+  margin-bottom: 1em;
+}
+/* line 51, ../scss/loopsns-admin.scss */
+.wp-admin .postbox#loopsns-editor #query-examples ol a {
+  text-decoration: none;
+}
+/* line 55, ../scss/loopsns-admin.scss */
+.wp-admin .postbox#loopsns-editor #query-examples ol .ui-state-active a {
+  text-decoration: underline;
+}
