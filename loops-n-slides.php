@@ -5,7 +5,7 @@ Description: A simple yet powerful plugin that allows you to build custom posts 
 Plugin URI: https://github.com/gordielachance/loops-n-slides
 Author: G.Breant
 Author URI: https://profiles.wordpress.org/grosbouff/#content-plugins
-Version: 1.1.0
+Version: 1.1.1
 License: GPL2
 */
 
@@ -14,7 +14,7 @@ class LoopsNSlides_Core {
     /**
     * @public string plugin version
     */
-    public $version = '1.1.0';
+    public $version = '1.1.1';
     /**
     * @public string plugin DB version
     */

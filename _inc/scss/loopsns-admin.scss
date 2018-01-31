@@ -46,5 +46,17 @@
             margin-top: 0;
             margin-bottom: 1em;
         }
+        #query-examples{
+            ol{
+                a{
+                    text-decoration: none;
+                }
+                .ui-state-active{
+                    a{
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
     }
 }

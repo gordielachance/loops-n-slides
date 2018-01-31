@@ -82,6 +82,8 @@ When enabled globally, you can prevent a gallery from rendering as a carousel by
 
 == Changelog ==
 
+= 1.1.1 =
+* Added queries examples in the loop editor metabox.
 = 1.1.0 =
 * now uses [jQuery json-viewer](https://github.com/abodelot/jquery.json-viewer) - jQuery plugin for displaying JSON data
 

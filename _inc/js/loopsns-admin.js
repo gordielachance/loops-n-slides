@@ -41,5 +41,14 @@ jQuery(document).ready(function($) {
         
     });
     
+    //Query examples
+    $('#query-examples').tabs();
+    $('#query-examples').hide();
+    $('#show-query-examples').click(function(e) {
+        e.preventDefault();
+        $('#query-examples').slideToggle();
+    });
+    
+    
 
 });

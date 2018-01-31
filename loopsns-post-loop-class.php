@@ -149,14 +149,106 @@ class LoopsNSlides_Posts_Loop{
                         </p>
                         <p>
                             <?php
-                                $example_link = sprintf('<a href="%s" target="_blank">%s</a>','http://jsoneditoronline.org/?id=ce5bd86606f0c4f283bc80939613c37b',__('here','loopsns'));
-                                printf(__('See an example and edit it %s.','loopsns'),$example_link);
-                            ?>  <?php
+                            $examples_link = sprintf('<a id="show-query-examples" href="#">%s</a>',__('some examples','loopsns'));
+                            printf(__('Show %s.','loopsns'),$examples_link);
+                            ?>
+                            <?php
                             $codex_url = 'https://codex.wordpress.org/Class_Reference/WP_Query#Parameters';
                             $codex_link = sprintf('<a href="%s" target="_blank">%s</a>',$codex_url,__('Wordpress Codex','loopsns'));
                             printf(__('See the full list of available parameters on the %s.','loopsns'),$codex_link);
                             ?>
                         </p>
+                        <div id="query-examples">
+                            <?php
+                            $user_info = get_userdata(get_current_user_id());
+                            ?>
+                            <h3><?php _e('Query Examples','loopsns');?></h3>
+                            <ol>
+                                <li><a href="#query-example-1"><?php _e('Return all slides.','loopsns');?></a></li>
+                                <li><a href="#query-example-2"><?php printf(__("Return default number of posts, for the author '%s', in the category 'news'.",'loopsns'),$user_info->user_nicename);?></a></li>
+                                <li><a href="#query-example-3"><?php _e("Return last 5 modified pages that have a featured image.",'loopsns');?></a></li>
+                                <li><a href="#query-example-4"><?php _e("Return all posts made in the past month and that have at least 3 comments.",'loopsns');?></a></li>
+                                <li><a href="#query-example-5"><?php _e("Return 'action' and 'comedy' movies featuring actor #103,#115 or #206",'loopsns');?></a>  <small>(<?php _e('Uses custom post type & taxonomies.','loopsns');?>)</small></li>
+                            </ol>
+                        <p id="query-example-1" class="json-example">
+                            <?php
+                            $args = array(
+                                'post_type' =>      'loopsns-slide',
+                                'posts_per_page' => -1
+                            );
+                            ?>
+                            <code><?php echo json_encode($args);?></code>
+                        </p>
+                        <p id="query-example-2" class="json-example">
+                            <?php
+                            $args = array(
+                                'post_type' =>      'post',
+                                'author_name' =>    $user_info->user_nicename,
+                                'cat' =>            'news'
+                            );
+                            ?>
+                            <code><?php echo json_encode($args);?></code>
+                        </p>
+                        <p id="query-example-3" class="json-example">
+                            <?php
+                            $args = array(
+                                'post_type' =>  'page',
+                                'orderby' =>    'modified',
+                                'posts_per_page' => 5,
+                                'meta_query' => array(
+                                    array(
+                                     'key' => '_thumbnail_id',
+                                     'compare' => 'EXISTS'
+                                    ),
+                                )
+                            );
+                            ?>
+                            <code><?php echo json_encode($args);?></code>
+                        </p>
+                        <p id="query-example-4" class="json-example">
+                            <?php
+                            $args = array(
+                                'post_type' =>  'post',
+                                'date_query' => array(
+                                    array(
+                                        'column' => 'post_date_gmt',
+                                        'after'  => '1 month ago',
+                                    ),
+                                ),
+                                'comment_count' => array(
+                                    array(
+                                        'value' => 3,
+                                        'compare' => '>=',
+                                    ),
+                                ),
+                                'posts_per_page' => -1
+                            );
+                            ?>
+                            <code><?php echo json_encode($args);?></code>
+                        </p>
+                        <p id="query-example-5" class="json-example">
+                            <?php
+                            $args = array(
+                                'post_type' => 'movie',
+                                'tax_query' => array(
+                                    'relation' => 'AND',
+                                    array(
+                                        'taxonomy' => 'movie_genre',
+                                        'field'    => 'slug',
+                                        'terms'    => array( 'action', 'comedy' ),
+                                    ),
+                                    array(
+                                        'taxonomy' => 'movie_actor',
+                                        'field'    => 'term_id',
+                                        'terms'    => array( 103, 115, 206 ),
+                                        'operator' => 'IN',
+                                    ),
+                                ),
+                            );
+                            ?>
+                            <code><?php echo json_encode($args);?></code>
+                        </p>
+                        </div>
                     </td>
                 </tr>
                 <tr valign="top">
