@@ -46,7 +46,8 @@ class LoopsNSlides_Instance {
 
         //default
         if (!$template){
-            $template = static::get_defaults('template');
+            $default_file = static::get_defaults('template');
+            $template = loopsns_locate_template( $default_file );
         }
 
         return $template;

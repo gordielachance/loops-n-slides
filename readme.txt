@@ -82,6 +82,8 @@ When enabled globally, you can prevent a gallery from rendering as a carousel by
 
 == Changelog ==
 
+= 1.1.2 =
+* Fix https://github.com/gordielachance/loops-n-slides/issues/1
 = 1.1.1 =
 * Added queries examples in the loop editor metabox.
 = 1.1.0 =

@@ -5,7 +5,7 @@ Description: A simple yet powerful plugin that allows you to build custom posts 
 Plugin URI: https://github.com/gordielachance/loops-n-slides
 Author: G.Breant
 Author URI: https://profiles.wordpress.org/grosbouff/#content-plugins
-Version: 1.1.1
+Version: 1.1.2
 License: GPL2
 */
 
@@ -14,7 +14,7 @@ class LoopsNSlides_Core {
     /**
     * @public string plugin version
     */
-    public $version = '1.1.1';
+    public $version = '1.1.2';
     /**
     * @public string plugin DB version
     */
@@ -80,7 +80,7 @@ class LoopsNSlides_Core {
                 'autoplay' => true,
                 'animateOut' => 'fadeOut'
             ),
-            'template' => $this->templates_dir . 'loop-list.php',
+            'template' => 'loop-list.php',
             
             'enable_gallery_carousels'          => 'on',
             'gallery_carousel_args'  => array(
@@ -89,7 +89,7 @@ class LoopsNSlides_Core {
                 'autoplay' => true,
                 'animateOut' => 'fadeOut'
             ),
-            'gallery_template' => loopsns()->templates_dir . 'loop-gallery.php'
+            'gallery_template' => 'loop-gallery.php'
         );
         
         $this->options = wp_parse_args(get_option( $this->meta_name_options), $this->options_default);
