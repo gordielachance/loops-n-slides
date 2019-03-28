@@ -3,7 +3,7 @@ Contributors: grosbouff
 Donate link: http://bit.ly/gbreant
 Tags: loop,shortcode,query,carousel,slides,owlcarousel,queries
 Requires at least: 4.9
-Tested up to: 4.9.2
+Tested up to: 5.1.1
 Stable tag: trunk
 License: GPLv2 or later
 

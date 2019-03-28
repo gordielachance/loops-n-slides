@@ -392,8 +392,8 @@ class LoopsNSlides_Posts_Loop{
         }
         
         /*carousel*/
-        $is_carousel = $_POST['loopsns_carousel'];
-        if ($is_carousel == 'on'){
+        $is_carousel = (isset($_POST['loopsns_carousel']) && ($_POST['loopsns_carousel'] === 'on')) ? true : false;
+        if ($is_carousel){
             update_post_meta( $post_id, self::$carousel_metakey, true );
         }else{
             delete_post_meta( $post_id, self::$carousel_metakey );
