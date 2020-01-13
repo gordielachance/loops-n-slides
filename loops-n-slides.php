@@ -35,6 +35,8 @@ class LoopsNSlides_Core {
     public $meta_name_options = 'loops-n-slides-options';
     public $menu_slug = 'loops-n-slides';
 
+    public static $donate_link = 'http://bit.ly/gbreant';
+
     /**
     * @var The one true Instance
     */
@@ -120,11 +122,30 @@ class LoopsNSlides_Core {
         add_action( 'wp_enqueue_scripts', array($this,'scripts_styles') );
         add_action( 'admin_enqueue_scripts', array($this,'admin_scripts_styles') );
 
+        add_filter( 'plugin_action_links_' . $this->basename, array($this, 'plugin_bottom_links')); //bottom links
+
         new LoopsNSlides_Settings();
         new LoopsNSlides_Posts_Loop(); //loop post type
         new LoopsNSlides_Posts_Slide(); //slide post type
         new LoopsNSlides_Gallery(); //galleries stuff
 
+    }
+
+    function plugin_bottom_links($links){
+        
+        $links[] = sprintf('<a target="_blank" href="%s">%s</a>',self::$donate_link,__('Donate','loopsns'));//donate
+
+        if (current_user_can('manage_options')) {
+            $settings_page_url = add_query_arg(
+                array(
+                    'page'=>$this->menu_slug
+                ),
+                get_admin_url(null, 'admin.php')
+            );
+            $links[] = sprintf('<a href="%s">%s</a>',esc_url($settings_page_url),__('Settings'));
+        }
+
+        return $links;
     }
     
     function load_textdomain() {
