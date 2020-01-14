@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Loops 'n Slides
-Description: A simple yet powerful plugin that allows you to build custom posts loops and display them using a shortcode; eventually as a carousel of slides.
+Description: A simple yet powerful plugin that allows you to display posts loops based on any query, as a carousel of slides or using a custom template.
 Plugin URI: https://github.com/gordielachance/loops-n-slides
 Author: G.Breant
-Author URI: https://profiles.wordpress.org/grosbouff/#content-plugins
-Version: 1.1.2
+Author URI: https://profiles.wordpress.org/grosbouff
+Version: 1.1.3
 License: GPL2
 */
 
@@ -14,7 +14,7 @@ class LoopsNSlides_Core {
     /**
     * @public string plugin version
     */
-    public $version = '1.1.2';
+    public $version = '1.1.3';
     /**
     * @public string plugin DB version
     */

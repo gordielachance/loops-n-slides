@@ -1,18 +1,17 @@
 === Loops 'n Slides ===
 Contributors: grosbouff
 Donate link: http://bit.ly/gbreant
-Tags: loop,shortcode,query,carousel,slides,owlcarousel,queries
+Tags: loop,shortcode,custom query,carousel,slides,owlcarousel,queries
 Requires at least: 4.9
-Tested up to: 5.1.1
+Tested up to: 5.3.2
 Stable tag: trunk
 License: GPLv2 or later
 
-A simple yet powerful plugin that allows you to build custom posts loops and display them using a shortcode; eventually as a carousel of slides!
+A simple yet powerful plugin that allows you to display posts loops based on any query, as a carousel of slides or using a custom template.
 
 == Description ==
 
-A simple yet powerful plugin that allows you to build custom posts loops and display them using a shortcode; eventually as a carousel of slides.
-Optionally, it will display your image galleries as carousels.
+A simple yet powerful plugin that allows you to display posts loops based on any query, as a carousel of slides or using a custom template.
 
 = Features =
 * **Display any posts you want...** Create a loop that will display exactly the posts you want; filtered by tag, category, by post author... any Wordpress Query works !
