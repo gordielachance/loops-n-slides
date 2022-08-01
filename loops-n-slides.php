@@ -31,7 +31,7 @@ class LoopsNSlides_Core {
     public $plugin_dir = '';
     public $templates_dir = '';
     public $plugin_url = '';
-    
+
     public $meta_name_options = 'loops-n-slides-options';
     public $menu_slug = 'loops-n-slides';
 
@@ -43,7 +43,7 @@ class LoopsNSlides_Core {
     static $instance;
 
     public static function instance() {
-        
+
             if ( ! isset( self::$instance ) ) {
                     self::$instance = new LoopsNSlides_Core;
                     self::$instance->includes();
@@ -52,7 +52,7 @@ class LoopsNSlides_Core {
             }
             return self::$instance;
     }
-    
+
     /**
         * A dummy constructor to prevent plugin from being loaded more than once.
         *
@@ -61,16 +61,16 @@ class LoopsNSlides_Core {
         * @see bbpress();
         */
     function __construct() { /* Do nothing here */ }
-    
+
     function setup_globals() {
-        
+
         /** Paths *************************************************************/
         $this->file       = __FILE__;
         $this->basename   = plugin_basename( $this->file );
         $this->plugin_dir = plugin_dir_path( $this->file );
-        $this->templates_dir = trailingslashit( $this->plugin_dir . 'templates' ); 
+        $this->templates_dir = trailingslashit( $this->plugin_dir . 'templates' );
         $this->plugin_url = plugin_dir_url ( $this->file );
-        
+
         $this->options_default = array(
             'query_args'             => array(
                 'post_type' =>      LoopsNSlides_Posts_Slide::$slide_post_type,
@@ -83,7 +83,7 @@ class LoopsNSlides_Core {
                 'animateOut' => 'fadeOut'
             ),
             'template' => 'loop-list.php',
-            
+
             'enable_gallery_carousels'          => 'on',
             'gallery_carousel_args'  => array(
                 'items' =>  1,
@@ -93,18 +93,18 @@ class LoopsNSlides_Core {
             ),
             'gallery_template' => 'loop-gallery.php'
         );
-        
+
         $this->options = wp_parse_args(get_option( $this->meta_name_options), $this->options_default);
 
     }
-    
+
     public function get_options($keys = null){
         return loopsns_get_array_value($keys,$this->options);
     }
     public function get_defaults($keys = null){
         return loopsns_get_array_value($keys,$this->options_default);
     }
-    
+
     function includes(){
         require_once($this->plugin_dir . 'loopsns-functions.php');
         require_once($this->plugin_dir . 'loopsns-instance-class.php');
@@ -113,7 +113,7 @@ class LoopsNSlides_Core {
         require_once($this->plugin_dir . 'loopsns-gallery-class.php');
         require_once($this->plugin_dir . 'loopsns-settings.php');
     }
-    
+
     function setup_actions(){
 
         add_action( 'plugins_loaded', array($this, 'upgrade') );
@@ -132,7 +132,7 @@ class LoopsNSlides_Core {
     }
 
     function plugin_bottom_links($links){
-        
+
         $links[] = sprintf('<a target="_blank" href="%s">%s</a>',self::$donate_link,__('Donate','loopsns'));//donate
 
         if (current_user_can('manage_options')) {
@@ -147,11 +147,11 @@ class LoopsNSlides_Core {
 
         return $links;
     }
-    
+
     function load_textdomain() {
         load_plugin_textdomain( 'loopsns', false, $this->plugin_dir . '/languages' );
     }
-    
+
     function upgrade(){
         global $wpdb;
 
@@ -160,7 +160,7 @@ class LoopsNSlides_Core {
         if ($current_version==$this->db_version) return false;
         if(!$current_version){ //install
 
-            
+
 
         }else{ //upgrade
 
@@ -170,32 +170,32 @@ class LoopsNSlides_Core {
             */
 
         }
-        
+
         //update DB version
         update_option("_loopsns-db_version", $this->db_version );
     }
-    
+
     /**
      * List of JavaScript / CSS files for admin
      */
     function admin_scripts_styles() {
-        
+
         if ( !$this->is_loopsnslides_admin() ) return;
-        
+
         //JSON VIEWER
         wp_register_script('jquery.json-viewer', $this->plugin_url . '_inc/js/jquery.json-viewer/jquery.json-viewer.js',array('jquery')); //TOFIX version
         wp_register_style('jquery.json-viewer', $this->plugin_url . '_inc/js/jquery.json-viewer/jquery.json-viewer.css',null); //TOFIX version
-        
+
         //CSS
         wp_register_style('loopsns-admin', $this->plugin_url . '_inc/css/loopsns-admin.css',array('jquery.json-viewer'),$this->version);
         wp_enqueue_style('loopsns-admin');
 
         //JS
-        
+
         wp_register_script('loopsns-admin', $this->plugin_url . '_inc/js/loopsns-admin.js',array('jquery.json-viewer','jquery-ui-tabs'),$this->version);
 
         wp_enqueue_script('loopsns-admin');
-        
+
         if ( LoopsNSlides_Posts_Loop::is_single_loop_admin() ){ //for loops preview
             LoopsNSlides_Posts_Loop::carousel_styles_scripts();
         }
@@ -208,9 +208,9 @@ class LoopsNSlides_Core {
         //TO FIX TO CHECK conditionnal embed only if shortcode has run ?
         LoopsNSlides_Posts_Loop::carousel_styles_scripts();
     }
-    
+
     function is_loopsnslides_admin(){
-        
+
         if ( !is_admin() ) return;
 
         $screen = get_current_screen();
@@ -227,7 +227,7 @@ class LoopsNSlides_Core {
 
         return true;
     }
-    
+
     public function debug_log($message,$title = null) {
 
         if (WP_DEBUG_LOG !== true) return false;
@@ -241,7 +241,7 @@ class LoopsNSlides_Core {
             error_log($prefix.$message);
         }
     }
-    
+
 }
 
 function loopsns() {

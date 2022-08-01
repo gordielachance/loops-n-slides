@@ -71,7 +71,7 @@ class LoopsNSlides_Posts_Loop{
 
         return $columns;
     }
-    
+
     /**
      * Add custom column contents in administration
      * @param string $columnName
@@ -82,13 +82,13 @@ class LoopsNSlides_Posts_Loop{
             ?>
             <code><?php printf('[loops-n-slides id=%s]',$post->ID);?></code>
             <?php
-            
+
         }
     }
-    
+
     static function is_single_loop_admin(){
         $screen = get_current_screen();
-        
+
         if ( ( $screen->base == 'post' ) && ( $screen->post_type == self::$loop_post_type )  ){
             return true;
         }
@@ -97,25 +97,25 @@ class LoopsNSlides_Posts_Loop{
     function populate_single_loop_backend(){
         global $post;
         global $loopsns_loop;
-        
+
         if ( self::is_single_loop_admin()  ){
             $post_id = isset($_GET['post']) ? $_GET['post'] : null;
             //set global
             $loopsns_loop = new LoopsNSlides_Instance($post_id);
         }
     }
-    
+
     function register_loop_metaboxes(){
         add_meta_box( 'loopsns-editor', __( 'Loop Editor', 'loopsns' ), array($this,'metabox_loop_editor_content'), self::$loop_post_type );
         add_meta_box( 'loopsns-preview', __( 'Loop Preview', 'loopsns' ), array($this,'metabox_loop_preview_content'), self::$loop_post_type );
     }
-    
+
     function after_title_text(){
         global $loopsns_loop;
-        
+
         if ( !self::is_single_loop_admin()  ) return;
         $loop_id_txt = $loopsns_loop->id ? $loopsns_loop->id : 'POST_ID';
-        
+
         ?>
         <h2><?php _e('Shortcode','loopsns');?></h2>
         <p>
@@ -126,7 +126,7 @@ class LoopsNSlides_Posts_Loop{
         </p>
         <?php
     }
-    
+
     function metabox_loop_editor_content( $post ){
         global $loopsns_loop;
 
@@ -287,7 +287,7 @@ class LoopsNSlides_Posts_Loop{
                         $owl_link = sprintf('<a href="%s" target="_blank">Owl Carousel</a>',$owl_url);
                         $desc = sprintf(__('Enable %s for this loop.','loopsns'),$owl_link);
                         printf(__('<input type="checkbox" id="loopsns-carousel" name="loopsns_carousel" value="on" %s> %s'),$checked_attr,$desc);
-        
+
                         ?>
                         <p
                     </td>
@@ -319,34 +319,34 @@ class LoopsNSlides_Posts_Loop{
         <?php
         // Add nonce for security and authentication.
         wp_nonce_field( 'loopsns_main_metabox', 'loopsns_main_metabox_nonce' );
-        
+
     }
-    
+
     function metabox_loop_preview_content( $post) {
         global $loopsns_loop;
-        
+
         ?>
         <p class="loopsns-notice">
             <?php echo _e("The look of the loop might be different frontend.",'loopsns');?>
         </p>
         <?php
-        
+
         echo $loopsns_loop->get_loop_render();
     }
-    
+
     static function carousel_styles_scripts(){
-        
+
         //CSS
         wp_register_style('loopsns-loop', loopsns()->plugin_url . '_inc/css/loopsns-loop.css',null,loopsns()->version);
         wp_enqueue_style('loopsns-loop');
-        
+
         //JS
         wp_register_script('loopsns-loop', loopsns()->plugin_url . '_inc/js/loopsns-loop.js',array('jquery'),loopsns()->version,true);
         wp_enqueue_script('loopsns-loop');
-        
-        wp_register_style('jquery.owlcarousel-theme', '//cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.theme.default.min.css','2.2.1');
-        wp_register_style('jquery.owlcarousel', '//cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css',array('jquery.owlcarousel-theme'),'2.2.1');
-        wp_register_script('jquery.owlcarousel', '//cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js',array('jquery'),'2.2.1',true);
+
+        wp_register_style('jquery.owlcarousel-theme', '//cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css','2.3.4');
+        wp_register_style('jquery.owlcarousel', '//cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css',array('jquery.owlcarousel-theme'),'2.3.4');
+        wp_register_script('jquery.owlcarousel', '//cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js',array('jquery'),'2.3.4',true);
         //TO FIX enqueue only with shortcode ? Is this possible ?
         wp_enqueue_script('jquery.owlcarousel');
         wp_enqueue_style('jquery.owlcarousel');
@@ -366,7 +366,7 @@ class LoopsNSlides_Posts_Loop{
         $is_revision = wp_is_post_revision( $post_id );
         $is_valid_nonce = ( isset($_POST['loopsns_main_metabox_nonce']) && wp_verify_nonce( $_POST['loopsns_main_metabox_nonce'], 'loopsns_main_metabox' ) );
         if ( !$is_valid_nonce || $is_autodraft || $is_autosave || $is_revision ) return;
-        
+
         /*query args*/
         $default_qargs = loopsns()->get_options('query_args');
         $qargs = ( isset($_POST[ 'loopsns_qargs_json' ]) ) ? stripslashes_deep($_POST[ 'loopsns_qargs_json' ]) : null;
@@ -382,7 +382,7 @@ class LoopsNSlides_Posts_Loop{
         }else{
             update_post_meta( $post_id, self::$qargs_metakey, $qargs );
         }
-        
+
         /*template*/
         $template = ( isset($_POST[ 'loopsns_template' ]) ) ? $_POST[ 'loopsns_template' ] : null;
         if (!$template){
@@ -390,7 +390,7 @@ class LoopsNSlides_Posts_Loop{
         }else{
             update_post_meta( $post_id, self::$template_metakey, $template );
         }
-        
+
         /*carousel*/
         $is_carousel = (isset($_POST['loopsns_carousel']) && ($_POST['loopsns_carousel'] === 'on')) ? true : false;
         if ($is_carousel){
@@ -402,7 +402,7 @@ class LoopsNSlides_Posts_Loop{
         /*carousel args*/
         $default_cargs = loopsns()->get_options('carousel_args');
         $cargs = ( isset($_POST[ 'loopsns_cargs_json' ]) ) ? stripslashes_deep($_POST[ 'loopsns_cargs_json' ]) : null;
-        
+
         if ( loopsns_is_json($cargs) ){
             $cargs = json_decode($cargs,true);
         }
@@ -414,7 +414,7 @@ class LoopsNSlides_Posts_Loop{
         }else{
             update_post_meta( $post_id, self::$cargs_metakey, $cargs );
         }
-        
+
     }
 
     /**
@@ -427,7 +427,7 @@ class LoopsNSlides_Posts_Loop{
 
         $carousel = null;
         $attributes = array();
-        
+
         $defaults = array('id'=>null);
         $atts = shortcode_atts($defaults,$atts,self::$shortcode_slug);
 
@@ -469,7 +469,7 @@ class LoopsNSlides_Posts_Loop{
                     if( in_array( $template , $loop_templates ) ) continue; //for priority
 
                     if( is_wp_error($template ) ) continue;
-                    
+
                     $template_name = self::get_loop_template_name($template);
 
                     if ( !is_wp_error($template_name) ){
@@ -481,7 +481,7 @@ class LoopsNSlides_Posts_Loop{
 
         return $loop_templates;
     }
-    
+
     /**
      * Check if a template file is a loop template and corresponds to the specified object type
      * @param string $file Template file name
@@ -490,9 +490,9 @@ class LoopsNSlides_Posts_Loop{
     static function is_loop_template($file) {
         return self::get_loop_template_name($file);
     }
-    
+
     static function get_loop_template_name($file){
-        
+
         if ( !file_exists($file) ){
             return new WP_Error('loopsns-template',sprintf(__('The template file %s does not exists.','loopsns'),'<em>' . $file .'</em>') );
         }
@@ -505,9 +505,9 @@ class LoopsNSlides_Posts_Loop{
 
         if ( empty( $template_name ) ){
             return new WP_Error('loopsns-template',sprintf(__("The file %s is not a Loops 'n slides template.",'loopsns'),'<em>' . $file .'</em>') );
-        } 
+        }
 
         return $template_name;
     }
-    
+
 }

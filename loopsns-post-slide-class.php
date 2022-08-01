@@ -20,7 +20,7 @@ class LoopsNSlides_Posts_Slide{
     function init_slide_post_type() {
         $this->register_slide_post_type();
     }
-    
+
     function register_slide_post_type(){
         $labels = array(
             'name'               => _x( 'Slides', 'post type general name', 'loopsns' ),
@@ -54,25 +54,25 @@ class LoopsNSlides_Posts_Slide{
             'show_in_menu'    => loopsns()->menu_slug,
         ));
     }
-    
+
     function slide_post_type_description(){ //TO FIX better hook for this ?
         $screen = get_current_screen();
         $can_show = ( ( $screen->base == 'edit' ) && ( $screen->post_type == self::$slide_post_type )  );
-        
+
         if (!$can_show) return;
 
         ?>
         <div class="notice">
-            <p><?php 
-            _e( "Slides are just a post type designed to be specifically queried by Loops.", 'loopsns' ); 
+            <p><?php
+            _e( "Slides are just a post type designed to be specifically queried by Loops.", 'loopsns' );
             ?></p>
-            <p><?php 
-            _e( "You are not required to use them if you don't want to - Loops can load any type of posts - but they might be useful as they don't appear on archive or search pages.", 'loopsns' ); 
+            <p><?php
+            _e( "You are not required to use them if you don't want to - Loops can load any type of posts - but they might be useful as they don't appear on archive or search pages.", 'loopsns' );
             ?></p>
         </div>
         <?php
     }
-    
+
     /**
      * Add custom column filters in administration
      * @param array $columns
@@ -86,7 +86,7 @@ class LoopsNSlides_Posts_Slide{
 
         return $columns;
     }
-    
+
     /**
      * Add custom column contents in administration
      * @param string $columnName

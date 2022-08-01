@@ -9,21 +9,21 @@ class LoopsNSlides_Settings{
 		add_action( 'admin_menu', array( $this, 'create_admin_menu' ), 8 );
         add_action( 'admin_init', array( $this, 'settings_init' ) );
     }
-    
+
     function create_admin_menu(){
         //http://wordpress.stackexchange.com/questions/236896/remove-or-move-admin-submenus-under-a-new-menu/236897#236897
 
         /////Create our custom menu
 
-        $menu_page = add_menu_page( 
+        $menu_page = add_menu_page(
             __( "Loops 'n Slides", 'loopsns' ), //page title
             __( "Loops 'n Slides", 'loopsns' ), //menu title
             'manage_options', //capability //TO FIX TO CHECK
             loopsns()->menu_slug,
             array($this,'settings_page'), //this function will output the content of the 'Music' page.
-            'dashicons-images-alt' // an image would be 'plugins_url( 'myplugin/images/icon.png' )'; but for core icons, see https://developer.wordpress.org/resource/dashicons 
+            'dashicons-images-alt' // an image would be 'plugins_url( 'myplugin/images/icon.png' )'; but for core icons, see https://developer.wordpress.org/resource/dashicons
         );
-        
+
         //create a submenu page that has the same slug so we don't have the menu title name for the first submenu page, see http://wordpress.stackexchange.com/questions/66498/add-menu-page-with-different-name-for-first-submenu-item
 
         add_submenu_page(
@@ -40,14 +40,14 @@ class LoopsNSlides_Settings{
         $new_input = array();
 
         if( isset( $input['reset_options'] ) ){
-            
+
             $new_input = loopsns()->get_defaults();
-            
+
         }else{ //sanitize values
-            
+
             //gallery default
             $new_input['enable_gallery_carousels'] = ( isset($input['enable_gallery_carousels']) ) ? 'on' : 'off';
-            
+
             /*loops carousel defaults*/
             $default_cargs = loopsns()->get_defaults('carousel_args');
             $cargs = null;
@@ -55,7 +55,7 @@ class LoopsNSlides_Settings{
             if ( loopsns_is_json($cargs) ){
                 $cargs = json_decode($cargs,true);
             }
-            
+
             if ($cargs == $default_cargs) $cargs = null; //unset if = defaults
 
             if ($cargs){
@@ -70,7 +70,7 @@ class LoopsNSlides_Settings{
             if ( loopsns_is_json($cargs) ){
                 $cargs = json_decode($cargs,true);
             }
-            
+
             if ($cargs == $default_cargs) $cargs = null; //unset if = defaults
 
             if ($cargs){
@@ -79,8 +79,8 @@ class LoopsNSlides_Settings{
         }
 
         return $new_input;
-        
-        
+
+
     }
 
     function settings_init(){
@@ -90,7 +90,7 @@ class LoopsNSlides_Settings{
             loopsns()->meta_name_options, // Option name
             array( $this, 'settings_sanitize' ) // Sanitize
          );
-        
+
         /*
         Loops
         */
@@ -101,10 +101,10 @@ class LoopsNSlides_Settings{
             'loopsns-settings-page' // Page
         );
         add_settings_field(
-            'loop-carousel-options', 
-            __('Default Carousel options','wpsstm'), 
-            array( $this, 'loop_carousel_options_callback' ), 
-            'loopsns-settings-page', 
+            'loop-carousel-options',
+            __('Default Carousel options','wpsstm'),
+            array( $this, 'loop_carousel_options_callback' ),
+            'loopsns-settings-page',
             'loop-settings'
         );
 
@@ -117,23 +117,23 @@ class LoopsNSlides_Settings{
             array( $this, 'section_desc_gallery_support' ), // Callback
             'loopsns-settings-page' // Page
         );
-        
+
         add_settings_field(
-            'enable_gallery_carousels', 
-            __('Default','wpsstm'), 
-            array( $this, 'gallery_carousel_callback' ), 
-            'loopsns-settings-page', 
+            'enable_gallery_carousels',
+            __('Default','wpsstm'),
+            array( $this, 'gallery_carousel_callback' ),
+            'loopsns-settings-page',
             'gallery-carousel-settings'
         );
-        
+
         add_settings_field(
-            'gallery-carousel-options', 
-            __('Default Options','wpsstm'), 
-            array( $this, 'gallery_carousel_options_callback' ), 
-            'loopsns-settings-page', 
+            'gallery-carousel-options',
+            __('Default Options','wpsstm'),
+            array( $this, 'gallery_carousel_options_callback' ),
+            'loopsns-settings-page',
             'gallery-carousel-settings'
         );
-        
+
         /*
         System
         */
@@ -144,20 +144,20 @@ class LoopsNSlides_Settings{
             array( $this, 'section_desc_empty' ), // Callback
             'loopsns-settings-page' // Page
         );
-        
+
         add_settings_field(
-            'reset_options', 
-            __('Reset Options','wpsstm'), 
-            array( $this, 'reset_options_callback' ), 
+            'reset_options',
+            __('Reset Options','wpsstm'),
+            array( $this, 'reset_options_callback' ),
             'loopsns-settings-page', // Page
             'settings_system'//section
         );
     }
-    
+
     function section_desc_empty(){
-        
+
     }
-    
+
     function loop_carousel_options_callback(){
         $default_cargs = loopsns()->get_defaults('carousel_args');
         $cargs = loopsns()->get_options('carousel_args');
@@ -179,7 +179,7 @@ class LoopsNSlides_Settings{
         </p>
         <?php
     }
-    
+
     function section_desc_gallery_support(){
         ?>
         <p>
@@ -191,7 +191,7 @@ class LoopsNSlides_Settings{
         </p>
         <?php
     }
-    
+
     function gallery_carousel_callback(){
         $option = loopsns()->get_options('enable_gallery_carousels');
 
@@ -202,9 +202,9 @@ class LoopsNSlides_Settings{
             __('Enabled','loopsns')
         );
     }
-    
 
-    
+
+
     function gallery_carousel_options_callback(){
         $cargs = loopsns()->get_options('gallery_carousel_args');
         $default_cargs = loopsns()->get_defaults('gallery_carousel_args');
@@ -227,7 +227,7 @@ class LoopsNSlides_Settings{
         </p>
         <?php
     }
-    
+
     function reset_options_callback(){
         printf(
             '<input type="checkbox" name="%s[reset_options]" value="on"/> %s',
@@ -235,12 +235,12 @@ class LoopsNSlides_Settings{
             __("Reset options to their default values.","loopsns")
         );
     }
-    
+
 	function settings_page() {
         ?>
         <div class="wrap">
-            <h2><?php _e("Loops 'n Slides Settings",'wpsstm');?></h2>  
-            
+            <h2><?php _e("Loops 'n Slides Settings",'wpsstm');?></h2>
+
             <?php
 
             settings_errors('loopsns-option-group');
@@ -250,7 +250,7 @@ class LoopsNSlides_Settings{
                 <?php
 
                 // This prints out all hidden setting fields
-                settings_fields( 'loopsns-option-group' );   
+                settings_fields( 'loopsns-option-group' );
                 do_settings_sections( 'loopsns-settings-page' );
                 submit_button();
 
@@ -260,5 +260,5 @@ class LoopsNSlides_Settings{
         </div>
         <?php
 	}
-    
+
 }

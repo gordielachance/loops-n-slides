@@ -9,7 +9,7 @@
  */
 function loopsns_get_array_value($keys = null, $array){
     if (!$keys) return $array;
-    
+
     $keys = (array)$keys;
     $first_key = $keys[0];
     if(count($keys) > 1) {
@@ -19,7 +19,7 @@ function loopsns_get_array_value($keys = null, $array){
     }elseif (isset($array[$first_key])){
         return $array[$first_key];
     }
-    
+
     return false;
 }
 
@@ -31,7 +31,7 @@ function loopsns_get_html_attr($arr=null){
     $str = null;
     $arr = (array)$arr;
     $arr = array_filter($arr, function($value) { return $value !== ''; }); //remove empty strings
-    
+
     //attributes with values
     if (!empty($arr) ){
         $arr = (array)$arr;
@@ -54,11 +54,11 @@ function loopsns_locate_template( $template_name, $load = false, $require_once =
     if ( !$located = locate_template( 'loops-n-slides/' . $template_name ) ) { //get from theme directory
         $located = loopsns()->templates_dir . $template_name; //get from directory 'templates' in plugin
     }
-    
+
     if ( $load && ('' != $located) ){
         load_template( $located, $require_once );
     }
-    
+
     return $located;
 }
 
@@ -66,7 +66,7 @@ function loopsns_json_container($name,$value=null){
 
     if ($value && !loopsns_is_json($value) ) $value = json_encode($value);
     $placeholder = __('Enter a JSON string','loopsns');
-    
+
     ?>
     <div class="loopsns-json-container">
         <ul class="loopsns-json-tabs">

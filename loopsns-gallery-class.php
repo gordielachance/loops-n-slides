@@ -4,7 +4,7 @@ Handles what is relative to Wordpress Galleries.
 */
 
 class LoopsNSlides_Gallery{
-    
+
     static $default_carousel_options = array(
         'items' => 3
     );
@@ -14,9 +14,9 @@ class LoopsNSlides_Gallery{
         add_filter( 'post_gallery', array($this,'handle_carousel_gallery'), 10, 3 );
 
     }
-    
+
     function gallery($atts){ //hijack the gallery shortcode
-        
+
         if (!$atts) $atts = array();
 
         //carousel enabled : custom or default ?
@@ -25,12 +25,12 @@ class LoopsNSlides_Gallery{
             if ($default_enabled){
                 $atts['loopsns-carousel'] = 1;
             }
-            
+
             //default size
             if (!isset($atts['size'])){
                 $atts['size'] = 'large';
             }
-            
+
         }
 
         //carousel options : custom or default ?
@@ -40,7 +40,7 @@ class LoopsNSlides_Gallery{
             if (!isset($atts['loopsns-carousel-options'])){
                 $atts['loopsns-carousel-options'] = json_encode(self::$default_carousel_options);
             }else{
-                
+
             }
         }
         */
@@ -64,6 +64,6 @@ class LoopsNSlides_Gallery{
         }
 
         return $output;
-        
+
     }
 }
